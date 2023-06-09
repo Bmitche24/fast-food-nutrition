@@ -6,7 +6,7 @@ app = Flask(__name__)
 
 @app.route('/')
 def home():
-    return render_template('fastfood.html')  # Replace 'index.html' with your actual HTML template file
-    
+    return render_template('fastfood.html')  
+
 if __name__ == '__main__':
     app.run(port=8000)
