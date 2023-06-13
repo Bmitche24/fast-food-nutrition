@@ -1,7 +1,9 @@
 #import the necessary modules
 import os
+from typing import TYPE_CHECKING
 from flask import Flask, jsonify, render_template
 from flask_sqlalchemy import SQLAlchemy
+from flask_sqlalchemy.model import Model
 from dotenv import load_dotenv
 
 load_dotenv()  # Load the environment variables from the .env file
@@ -17,9 +19,15 @@ app = Flask(__name__)
 # Construct the PostgreSQL connection string
 db_uri = f"postgresql://{db_username}:{db_password}@{db_host}:{db_port}/project_3"
 app.config['SQLALCHEMY_DATABASE_URI'] = db_uri
-db = SQLAlchemy(app)
 
-class FastFoodNutrition(db.Model):
+# Initialize sqlalchemy to DB
+db = SQLAlchemy()
+db.init_app(app)
+
+# Declare Base Model that ll models will inherit from
+BaseModel = db.make_declarative_base(Model)
+
+class FastFoodNutrition(BaseModel):
     __tablename__ = 'fastfood_nutrition'
 
     restaurant = db.Column(db.String, primary_key=True)
@@ -52,7 +60,7 @@ class FastFoodNutrition(db.Model):
         self.sugar = sugar
         self.protein = protein
 
-class RestaurantAvg(db.Model):
+class RestaurantAvg(BaseModel):
     __tablename__ = 'restaurant_avg'
 
     restaurant = db.Column(db.String, primary_key=True)
@@ -68,7 +76,7 @@ class RestaurantAvg(db.Model):
     avg_sugar = db.Column(db.Float, nullable=False)
     avg_protein = db.Column(db.Float, nullable=False)
 
-class SignatureItems(db.Model):
+class SignatureItems(BaseModel):
     __tablename__ = 'signature_items'
 
     restaurant = db.Column(db.String, primary_key=True)
@@ -91,7 +99,7 @@ def home():
 
 @app.route('/fastfood-nutrition', methods=['GET'])
 def get_fastfood_nutrition():
-    nutrition_rows = FastFoodNutrition.query.all()
+    nutrition_rows = db.session.execute(db.select(FastFoodNutrition)).scalars()
     data = [
         {
             'restaurant': c.restaurant,
@@ -112,6 +120,50 @@ def get_fastfood_nutrition():
     ]
     return jsonify(data)
 
+@app.route('/restaurant-averages', methods=['GET'])
+def get_restaurant_avg():
+    averages_rows = db.session.execute(db.select(RestaurantAvg)).scalars()
+    data = [
+        {
+            'restaurant': c.restaurant,
+            'avg_calories': c.avg_calories,
+            'avg_cal_fat': c.avg_cal_fat,
+            'avg_total_fat': c.avg_total_fat,
+            'avg_sat_fat': c.avg_sat_fat,
+            'avg_trans_fat': c.avg_trans_fat,
+            'avg_cholesterol': c.avg_cholesterol,
+            'avg_sodium': c.avg_sodium,
+            'avg_total_carb': c.avg_total_carb,
+            'avg_fiber': c.avg_fiber,
+            'avg_sugar': c.avg_sugar,
+            'avg_protein': c.avg_protein
+        }
+        for c in averages_rows
+    ]
+    return jsonify(data)
+
+@app.route('/signature-items', methods=['GET'])
+def get_signature_items():
+    signature_rows = db.session.execute(db.select(SignatureItems)).scalars()
+    data = [
+        {
+            'restaurant': c.restaurant,
+            'signature_item': c.signature_item,
+            'calories': c.calories,
+            'cal_fat': c.cal_fat,
+            'total_fat': c.total_fat,
+            'sat_fat': c.sat_fat,
+            'trans_fat': c.trans_fat,
+            'cholesterol': c.cholesterol,
+            'sodium': c.sodium,
+            'total_carb': c.total_carb,
+            'fiber': c.fiber,
+            'sugar': c.sugar,
+            'protein': c.protein
+        }
+        for c in signature_rows
+    ]
+    return jsonify(data)
 
 if __name__ == '__main__':
     app.run(port=8080)

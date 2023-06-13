@@ -4,11 +4,45 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Fast Food Nutrition</title>
+        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+        <link rel="stylesheet" type="text/css" href="styles.css">
     </head>
     <body>
-
-        <!-- Header -->
-        <h1>Nutritional Data From Popular Fast Food Restaurants</h1>
+      <!-- Average nutrient chart-->
+      <div>
+        <label for="restaurant-select">Select Restaurant:</label>
+        <select id="restaurant-select">
+          <option value="Mcdonalds" class="red">Mcdonalds</option>
+          <option value="Chick-Fil-A">Chick-Fil-A</option>
+          <option value="Sonic">Sonic</option>
+          <option  value="Arbys">Arbys</option>
+          <option value="Burger King">Burger King</option>
+          <option value="Dairy Queen">Dairy Queen</option>
+          <option value="Subway">Subway</option>
+          <option value="Taco Bell">Taco Bell</option>
+          
+        </select>
+      
+        <label for="nutrient-select">Select Nutrient:</label>
+        <select id="nutrient-select">
+          <option value="avg_calories">Calories</option>
+          <option value="avg_cal_fat">Calories from Fat</option>
+          <option value="avg_total_fat">Total Fat</option>
+          <option value="avg_sat_fat">Saturated Fat</option>
+          <option value="avg_trans_fat">Trans Fat</option>
+          <option value="avg_cholesterol">Cholesterol</option>
+          <option value="avg_sodium">Sodium</option>
+          <option value="avg_total_carb">Total Carb</option>
+          <option value="avg_fiber">Fiber</option>
+          <option value="avg_sugar">Sugar</option>
+          <option value="avg_protein">Protein</option>
+          <!-- Add more options for each nutrient -->
+        </select>
+      </div>
+      
+      <canvas id="chart"></canvas>
+    
+      <script src="avg_chart.js"></script>
       
         <!-- Image -->
         <!--<img src="https://2u-data-curriculum-team.s3.amazonaws.com/dataviz-classroom/v1.1/11-Web/kids_dancing_hip_hop.png" alt="children learning to dance hip-hop" />

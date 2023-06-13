@@ -1,8 +1,8 @@
-DROP TABLE IF EXISTS fast_food.fastfood_nutrition CASCADE;
-DROP TABLE IF EXISTS fast_food.restaurant_avg CASCADE;
-DROP TABLE IF EXISTS fast_food.signature_items CASCADE;
+DROP TABLE IF EXISTS fastfood_nutrition CASCADE;
+DROP TABLE IF EXISTS restaurant_avg CASCADE;
+DROP TABLE IF EXISTS signature_items CASCADE;
 
-CREATE TABLE fast_food.fastfood_nutrition (
+CREATE TABLE fastfood_nutrition (
 	restaurant VARCHAR NOT NULL,
 	item VARCHAR NOT NULL,
 	calories INT NOT NULL,
@@ -18,9 +18,9 @@ CREATE TABLE fast_food.fastfood_nutrition (
 	protein INT NOT NULL
 );
 
-SELECT * FROM fast_food.fastfood_nutrition;
+SELECT * FROM fastfood_nutrition;
 
-CREATE TABLE fast_food.restaurant_avg (
+CREATE TABLE restaurant_avg (
 	restaurant VARCHAR NOT NULL,
 	avg_calories FLOAT NOT NULL,
 	avg_cal_fat FLOAT NOT NULL,
@@ -35,9 +35,11 @@ CREATE TABLE fast_food.restaurant_avg (
 	avg_protein FLOAT NOT NULL
 );
 
-SELECT * FROM fast_food.restaurant_avg;
+SELECT * FROM restaurant_avg;
 
-CREATE TABLE fast_food.signature_items (
+
+
+CREATE TABLE signature_items (
 	restaurant VARCHAR NOT NULL,
 	signature_item VARCHAR NOT NULL,
 	calories INT NOT NULL,
@@ -53,4 +55,4 @@ CREATE TABLE fast_food.signature_items (
 	protein INT NOT NULL
 );
 
-SELECT * FROM fast_food.signature_items;
+SELECT * FROM signature_items;
