@@ -186,7 +186,7 @@ const getRestaurantAvgs = () => {
           plugins: {
             title: {
               display: true,
-              text: 'Average Nutrient Content per Item of each Fast Food Restaurant (g)',
+              text: 'Average Nutrient Content per Item For each Fast Food Restaurant (g)',
               font: {
                 size: 24 // Customize the title font size
               }
@@ -271,9 +271,9 @@ function getCustomColor(index) {
     'rgb(250, 100, 0)', //orange
     'rgb(255, 0, 150)', //pink
     'rgb(200, 0, 250)', //purple
-    'rgb(100, 0, 0)', //darkred
-    'rgb(0, 0, 100)', //dark blue
-    'rgb(0, 50, 0)' //dark  green
+    'rgb(175, 0, 0)', //darkred
+    'rgb(0, 0, 175)', //dark blue
+    'rgb(0, 150, 0)' //dark  green
     // Add more custom colors for each nutrient
   ];
 
