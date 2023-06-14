@@ -1,48 +1,38 @@
 <!DOCTYPE html>
 <html lang="en-us">
     <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <h1>Nutrition Data for Popular Fast Food Restaurants</h1>
+        <!--<meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">-->
         <title>Fast Food Nutrition</title>
+        <script src="https://cdn.jsdelivr.net/npm/echarts/dist/echarts.min.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
         <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+        <script src="{{ url_for('static', filename='graphs.js') }}"></script>
         <link rel="stylesheet" type="text/css"  href="{{ url_for('static', filename='styles.css') }}">
     </head>
     <body>
-      <!-- Average nutrient chart-->
       <canvas id="pieChart"></canvas>
       <div>
-        <label for="item-select">Select Item:</label>
-        <select id="item-select"></select>
-      </div>
-      <div>
-        <label for="restaurant-select">Select Restaurant:</label>
-        <select id="restaurant-select">
-          <option value="Mcdonalds">Mcdonalds</option>
+        <label for="dropdown-restaurant">Select Restaurant</label>
+        <select id="dropdown-restaurant">
+          <!--<option value="Mcdonalds">Mcdonalds</option>
           <option value="Chick Fil-A">Chick Fil-A</option>
           <option value="Sonic">Sonic</option>
           <option value="Arbys">Arbys</option>
           <option value="Burger King">Burger King</option>
           <option value="Dairy Queen">Dairy Queen</option>
           <option value="Subway">Subway</option>
-          <option value="Taco Bell">Taco Bell</option>
-          <!-- Add more restaurant options as needed -->
+          <option value="Taco Bell">Taco Bell</option>-->
         </select>
       </div>
-      <canvas id="stackedBarChart"></canvas>
-      <canvas  id="lineChart"></canvas>>
-      <div style="width: 800px; height: 400px;">
-        <canvas id="lineChart"></canvas>
+      <div>
+        <label for="dropdown-item">Select Item:</label>
+        <select id="dropdown-item"></select>
       </div>
-      <style>
-        #lineChart {
-          width: 400px;
-          height: 300px;
-        }
-      </style>
-      <canvas id="pieChart"></canvas>
-      </body>
-       <!-- Include your script files -->
-      <script src="{{ url_for('static', filename='graphs.js') }}"></script>
+      <canvas id="stackedBarChart"></canvas>
+      <canvas  id="lineChart" style="width: 600px; height: 400px;"></canvas>
+    </body>
+    
       
 </html>

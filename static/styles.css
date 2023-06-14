@@ -1,6 +1,6 @@
 .container {
     max-width: 800px;
-    margin: 0 auto;
+    margin: 100 auto;
     padding: 20px;
   }
   
@@ -15,4 +15,9 @@
 
   .red {
     color: red
+  }
+
+  element.style {
+    height: 400p;
+    width: 300px;
   }
