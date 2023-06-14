@@ -210,7 +210,7 @@ const getSignatureItems = () => {
     .then(signatureItemsData => {      
       // Extract the nutrients and their values from the data
       const nutrients = ['cal_fat', 'total_fat', 'sat_fat', 'trans_fat', 'cholesterol', 'sodium', 'total_carb', 'fiber', 'sugar', 'protein'];
-      const labels = signatureItemsData.map(item => item.signature_item);
+      const labels = signatureItemsData.map(item => `${item.restaurant} - ${item.signature_item}`);
       const nutrientData = nutrients.map(nutrient => {
         if (nutrient === 'sodium') {
           return signatureItemsData.map(item => item[nutrient] / 1000); // Convert sodium from milligrams to grams
