@@ -186,7 +186,7 @@ const getRestaurantAvgs = () => {
           plugins: {
             title: {
               display: true,
-              text: 'Average Nutrient Content per Item of each Fast Food Restaurant',
+              text: 'Average Nutrient Content per Item of each Fast Food Restaurant (g)',
               font: {
                 size: 24 // Customize the title font size
               }
@@ -234,6 +234,7 @@ const getSignatureItems = () => {
         },
         options: {
           responsive: true,
+          maintainAspectRatio: true,
           scales: {
             x: {
               stacked: true // Enable stacked bars on the x-axis
@@ -246,7 +247,7 @@ const getSignatureItems = () => {
           plugins: {
             title: {
               display: true,
-              text: 'Nutrient Content of Fast Food Signature Items', // Specify the title text
+              text: 'Nutrient Content of Fast Food Signature Items (g)', // Specify the title text
               font: {
                 size: 24 // Customize the title font size
               }
