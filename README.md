@@ -44,3 +44,6 @@ Sincerely,
 
 Breanna Mitchell, Megan Flinders, Cody Lambach
 
+
+Sources: https://www.kaggle.com/datasets/ulrikthygepedersen/fastfood-nutrition
+
