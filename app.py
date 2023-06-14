@@ -95,7 +95,7 @@ class SignatureItems(BaseModel):
 
 @app.route('/')
 def home():
-    return render_template('fastfood.html')  
+    return render_template('index.html')  
 
 @app.route('/fastfood-nutrition', methods=['GET'])
 def get_fastfood_nutrition():
