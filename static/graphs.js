@@ -9,24 +9,59 @@ const updatePieChart = () => {
 
   if (selectedData) {
     const nutrientLabels = ['cal_fat', 'total_fat', 'sat_fat', 'trans_fat', 'cholesterol', 'sodium', 'total_carb', 'fiber', 'sugar', 'protein'];
-    const nutrientData = nutrientLabels.map(label => selectedData[label]);
+    const nutrientData = nutrientLabels.map(label => {
+      if (label === 'sodium') {
+        return selectedData[label] / 1000; // Convert sodium from milligrams to grams
+      } else {
+        return selectedData[label];
+      }
+    });
+  //if (selectedData) {
+    //const nutrientLabels = ['cal_fat', 'total_fat', 'sat_fat', 'trans_fat', 'cholesterol', 'sodium', 'total_carb', 'fiber', 'sugar', 'protein'];
+    //const nutrientData = nutrientLabels.map(label => selectedData[label]);
 
-    const chart = echarts.init(document.getElementById('pieChart'));
+    //const chart = echarts.init(document.getElementById('pieChart'));
+    const chartContainer = document.getElementById('chartContainer');
+    if (chartContainer) {
+      chartContainer.innerHTML = '';
+    }
+
+    // Create a new container for the chart
+    const chartElement = document.createElement('div');
+    chartElement.style.width = '100%';
+    chartElement.style.height = '400px';
+    chartContainer.appendChild(chartElement);
+
+    // Initialize and configure the chart
+    const chart = echarts.init(chartElement);
     const option = {
       title: {
-        text: `Nutrient Content of ${selectedItem} at ${selectedRestaurant}`
+        text: `Nutrient Content of ${selectedItem} at ${selectedRestaurant}`,
+        top: '1%',
+        textStyle: {
+          fontSize: 14,
+        },
+        left: 'center',
       },
       series: [{
         type: 'pie',
+        radius: '70%',
+        center: ['50%', '60%'],
         data: nutrientLabels.map((label, index) => ({
           name: label,
           value: nutrientData[index]
         })),
         label: {
           show: true,
-          formatter: '{b}: {d}%'
-        }
-      }]
+          formatter: '{b}: {d}',
+          textStyle: {
+            fontSize: 10,  // Adjust the label font size
+          },
+        },
+        labelLine: {
+          smooth: true,
+        },
+      }],
     };
 
     chart.setOption(option);
@@ -53,7 +88,7 @@ const getFastFood = () => {
       });
 
       dropdownRestaurant.addEventListener('change', () => {
-        //dropdownItem.innerHTML = '';
+        dropdownItem.innerHTML = '';
 
         const selectedRestaurant = dropdownRestaurant.value;
         const filteredItems = fastFoodData.filter(item => item.restaurant === selectedRestaurant);
@@ -252,7 +287,13 @@ const getRestaurantAvgs = () => {
       ];
 
       restaurants.forEach((restaurant, index) => {
-        const data = nutrients.map(nutrient => restaurantAvgData.find(row => row.restaurant === restaurant)[nutrient]);
+        const data = nutrients.map(nutrient => {
+          if (nutrient === 'avg_sodium') {
+            return restaurantAvgData.find(row => row.restaurant === restaurant)[nutrient] / 1000; // Convert sodium from milligrams to grams
+          } else {
+            return restaurantAvgData.find(row => row.restaurant === restaurant)[nutrient];
+          }
+        });
         const dataset = {
           label: restaurant,
           data: data,
@@ -308,7 +349,13 @@ const getSignatureItems = () => {
       // Extract the nutrients and their values from the data
       const nutrients = ['cal_fat', 'total_fat', 'sat_fat', 'trans_fat', 'cholesterol', 'sodium', 'total_carb', 'fiber', 'sugar', 'protein'];
       const labels = signatureItemsData.map(item => item.signature_item);
-      const nutrientData = nutrients.map(nutrient => signatureItemsData.map(item => item[nutrient]));
+      const nutrientData = nutrients.map(nutrient => {
+        if (nutrient === 'sodium') {
+          return signatureItemsData.map(item => item[nutrient] / 1000); // Convert sodium from milligrams to grams
+        } else {
+          return signatureItemsData.map(item => item[nutrient]);
+        }
+      });
       
       // Create the stacked bar chart
       const ctx = document.getElementById('stackedBarChart').getContext('2d');

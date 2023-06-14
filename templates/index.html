@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en-us">
     <head>
-      <h1>Nutrition Data for Popular Fast Food Restaurants</h1>
+      <h1>Nutritional Data for Popular Fast Food Restaurants</h1>
         <!--<meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">-->
         <title>Fast Food Nutrition</title>
@@ -12,7 +12,7 @@
         <link rel="stylesheet" type="text/css"  href="{{ url_for('static', filename='styles.css') }}">
     </head>
     <body>
-      <canvas id="pieChart"></canvas>
+      <div id="chartContainer"></div>
       <div>
         <label for="dropdown-restaurant">Select Restaurant</label>
         <select id="dropdown-restaurant">
@@ -30,6 +30,7 @@
         <label for="dropdown-item">Select Item:</label>
         <select id="dropdown-item"></select>
       </div>
+      <canvas id="pieChart"></canvas>
       <canvas id="stackedBarChart"></canvas>
       <canvas  id="lineChart" style="width: 600px; height: 400px;"></canvas>
     </body>
