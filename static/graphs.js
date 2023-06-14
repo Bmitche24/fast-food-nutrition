@@ -1,100 +1,85 @@
-// Function to update the pie chart based on the selected restaurant and item
 let fastFoodData;
+let dropdownRestaurant;
+let dropdownItem;
+
 const updatePieChart = () => {
   const selectedRestaurant = dropdownRestaurant.value;
   const selectedItem = dropdownItem.value;
   const selectedData = fastFoodData.find(item => item.restaurant === selectedRestaurant && item.item === selectedItem);
 
-  // Check if selected data is found
   if (selectedData) {
-    const nutrientLabels = Object.keys(selectedData).slice(2); // Exclude 'restaurant' and 'item'
+    const nutrientLabels = ['cal_fat', 'total_fat', 'sat_fat', 'trans_fat', 'cholesterol', 'sodium', 'total_carb', 'fiber', 'sugar', 'protein'];
     const nutrientData = nutrientLabels.map(label => selectedData[label]);
 
-    const ctx = document.getElementById('pieChart').getContext('2d');
-    new Chart(ctx, {
-      type: 'pie',
-      data: {
-        labels: nutrientLabels,
-        datasets: [{
-          data: nutrientData,
-          backgroundColor: getCustomColors(nutrientLabels.length), // Call a function to get custom colors
-        }]
+    const chart = echarts.init(document.getElementById('pieChart'));
+    const option = {
+      title: {
+        text: `Nutrient Content of ${selectedItem} at ${selectedRestaurant}`
       },
-      options: {
-        responsive: true,
-        maintainAspectRatio: false,
-        title: {
-          display: true,
-          text: `Nutrient Content of ${selectedItem} at ${selectedRestaurant}`
+      series: [{
+        type: 'pie',
+        data: nutrientLabels.map((label, index) => ({
+          name: label,
+          value: nutrientData[index]
+        })),
+        label: {
+          show: true,
+          formatter: '{b}: {d}%'
         }
-      }
-    });
+      }]
+    };
+
+    chart.setOption(option);
   }
 };
 
 const getFastFood = () => {
-  fetch('http://localhost:8080/restaurant-averages')
+  fetch('http://localhost:8080/fastfood-nutrition')
     .then(response => response.json())
     .then(data => {
       fastFoodData = data;
       const restaurants = [...new Set(fastFoodData.map(item => item.restaurant))];
       const items = [...new Set(fastFoodData.map(item => item.item))];
+      console.log(fastFoodData);
+      console.log(restaurants);
 
-      const dropdownRestaurant = document.getElementById('dropdown-restaurant');
-      const dropdownItem = document.getElementById('dropdown-item');
+      dropdownRestaurant = document.getElementById('dropdown-restaurant');
+      dropdownItem = document.getElementById('dropdown-item');
 
-      // Populate dropdown menu with restaurants
       restaurants.forEach(restaurant => {
         const option = document.createElement('option');
         option.text = restaurant;
         dropdownRestaurant.appendChild(option);
       });
 
-      // Update dropdown menu options when the restaurant selection changes
       dropdownRestaurant.addEventListener('change', () => {
+        //dropdownItem.innerHTML = '';
+
         const selectedRestaurant = dropdownRestaurant.value;
         const filteredItems = fastFoodData.filter(item => item.restaurant === selectedRestaurant);
 
-        // Clear previous options
-        dropdownItem.innerHTML = '';
-
-        // Populate dropdown menu with items for the selected restaurant
         filteredItems.forEach(item => {
           const option = document.createElement('option');
-          option.value = item;
-          option.textContent = item;
+          option.value = item.item;
+          option.textContent = item.item;
           dropdownItem.appendChild(option);
         });
+        console.log(filteredItems);
 
-        // Update the pie chart when the restaurant selection changes
         updatePieChart();
       });
 
-      // Update the pie chart when the item selection changes
       dropdownItem.addEventListener('change', () => {
         updatePieChart();
       });
 
-      // Initial update of the pie chart
       updatePieChart();
     })
     .catch(error => {
-      // Handle any errors that occurred during the fetch request
       console.error('Error:', error);
     });
 };
-
-const getCustomColors = (numColors) => {
-  const colors = [];
-  
-  // Generate random colors
-  for (let i = 0; i < numColors; i++) {
-    const color = `rgba(${Math.floor(Math.random() * 256)}, ${Math.floor(Math.random() * 256)}, ${Math.floor(Math.random() * 256)}, 1)`;
-    colors.push(color);
-  }
-  
-  return colors;
-};
+document.addEventListener('DOMContentLoaded', getFastFood);
 // const getFastFood = () => {
 //   fetch('http://localhost:8080/fastfood-nutrition')
 //     .then(response => response.json())
@@ -283,7 +268,7 @@ const getRestaurantAvgs = () => {
         data: chartData,
         options: {
           responsive: true,
-          maintainAspectRatio: false,
+          maintainAspectRatio: true,
           title: {
             display: true,
             text: 'Average Nutrition Comparison'
