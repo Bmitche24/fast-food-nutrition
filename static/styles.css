@@ -21,3 +21,8 @@
     height: 400p;
     width: 300px;
   }
+
+  .chart-container {
+    max-width: 800px; /* Set the maximum width */
+    margin: 100 auto; /* Center the chart horizontally */
+  }
