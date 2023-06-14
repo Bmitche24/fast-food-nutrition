@@ -10,9 +10,7 @@
     </head>
     <body>
       <!-- Average nutrient chart-->
-      <canvas id="stackedBarChart"></canvas>
-      <div id="fast-food-scatter-plot">
-      </div>
+      <canvas id="pieChart"></canvas>
       <div>
         <label for="item-select">Select Item:</label>
         <select id="item-select"></select>
@@ -31,7 +29,18 @@
           <!-- Add more restaurant options as needed -->
         </select>
       </div>
+      <canvas id="stackedBarChart"></canvas>
       <canvas  id="lineChart"></canvas>>
+      <div style="width: 800px; height: 400px;">
+        <canvas id="lineChart"></canvas>
+      </div>
+      <style>
+        #lineChart {
+          width: 400px;
+          height: 300px;
+        }
+      </style>
+      <canvas id="pieChart"></canvas>
       </body>
        <!-- Include your script files -->
       <script src="{{ url_for('static', filename='graphs.js') }}"></script>
