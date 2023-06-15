@@ -268,7 +268,7 @@ function getCustomColor(index) {
     'rgba(0, 255, 0, 0.5)',    // Green
     'rgba(0, 0, 255, 0.5)',    // Blue
     'rgba(255, 255, 0, 0.5)',  // Yellow
-    'rgb(250, 100, 0)', //orange
+    'rgb(250, 150, 0)', //orange
     'rgb(255, 0, 150)', //pink
     'rgb(200, 0, 250)', //purple
     'rgb(175, 0, 0)', //darkred
